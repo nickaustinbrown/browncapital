@@ -72,3 +72,137 @@
     label {
       display: block;
       margin-top: 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px;
+      background: #0f0f0f;
+      border: 1px solid var(--border-dark);
+      color: var(--text-white);
+      font-size: 1rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent-orange);
+    }
+
+    .summary {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .summary-item {
+      padding: 20px;
+      background: #0f0f0f;
+      border: 1px solid var(--border-dark);
+    }
+
+    .summary-item h3 {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .summary-item p {
+      margin: 8px 0 0;
+      font-size: 1.6rem;
+      color: var(--accent-orange);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><span>Interest</span> Calculator</h1>
+  <p>
+    Enter an amount to see how much interest it earns at a fixed 13% annual rate.
+  </p>
+</header>
+
+<main>
+  <!-- Input Section -->
+  <div class="card">
+    <h2>Investment Input</h2>
+
+    <label>Principal Amount ($)</label>
+    <input type="number" id="principal" placeholder="e.g. 10000" />
+  </div>
+
+  <!-- Summary Section -->
+  <div class="summary">
+    <div class="summary-item">
+      <h3>Daily Interest</h3>
+      <p id="daily">$0</p>
+    </div>
+
+    <div class="summary-item">
+      <h3>Weekly Interest</h3>
+      <p id="weekly">$0</p>
+    </div>
+
+    <div class="summary-item">
+      <h3>Monthly Interest</h3>
+      <p id="monthly">$0</p>
+    </div>
+
+    <div class="summary-item">
+      <h3>Yearly Interest</h3>
+      <p id="yearly">$0</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Fixed 13% APR • Simple Interest • Dark UI / Orange Accent
+</footer>
+
+<script>
+  const RATE = 0.13;
+
+  const principalInput = document.getElementById("principal");
+
+  function calculateInterest() {
+    const principal = Number(principalInput.value) || 0;
+
+    const yearly = principal * RATE;
+    const monthly = yearly / 12;
+    const weekly = yearly / 52;
+    const daily = yearly / 365;
+
+    document.getElementById("daily").textContent =
+      `$${daily.toFixed(2).toLocaleString()}`;
+    document.getElementById("weekly").textContent =
+      `$${weekly.toFixed(2).toLocaleString()}`;
+    document.getElementById("monthly").textContent =
+      `$${monthly.toFixed(2).toLocaleString()}`;
+    document.getElementById("yearly").textContent =
+      `$${yearly.toFixed(2).toLocaleString()}`;
+  }
+
+  principalInput.addEventListener("input", calculateInterest);
+</script>
+
+</body>
+</html>
